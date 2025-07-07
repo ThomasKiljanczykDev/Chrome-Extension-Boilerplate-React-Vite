@@ -10,53 +10,28 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
 
-import { Route as rootRoute } from './routes/__root'
+const HomePageIndexLazyRouteImport = createFileRoute('/home-page/')()
 
-// Create Virtual Routes
-
-const HomePageIndexLazyImport = createFileRoute('/home-page/')()
-
-// Create/Update Routes
-
-const HomePageIndexLazyRoute = HomePageIndexLazyImport.update({
+const HomePageIndexLazyRoute = HomePageIndexLazyRouteImport.update({
   id: '/home-page/',
   path: '/home-page/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any).lazy(() =>
   import('./routes/home-page/index.lazy').then((d) => d.Route),
 )
 
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/home-page/': {
-      id: '/home-page/'
-      path: '/home-page'
-      fullPath: '/home-page'
-      preLoaderRoute: typeof HomePageIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-  }
-}
-
-// Create and export the route tree
-
 export interface FileRoutesByFullPath {
   '/home-page': typeof HomePageIndexLazyRoute
 }
-
 export interface FileRoutesByTo {
   '/home-page': typeof HomePageIndexLazyRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
+  __root__: typeof rootRouteImport
   '/home-page/': typeof HomePageIndexLazyRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths: '/home-page'
@@ -65,31 +40,25 @@ export interface FileRouteTypes {
   id: '__root__' | '/home-page/'
   fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
   HomePageIndexLazyRoute: typeof HomePageIndexLazyRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/home-page/': {
+      id: '/home-page/'
+      path: '/home-page'
+      fullPath: '/home-page'
+      preLoaderRoute: typeof HomePageIndexLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   HomePageIndexLazyRoute: HomePageIndexLazyRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/home-page/"
-      ]
-    },
-    "/home-page/": {
-      "filePath": "home-page/index.lazy.tsx"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
