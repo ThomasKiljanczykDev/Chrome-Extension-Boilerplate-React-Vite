@@ -1,8 +1,8 @@
 <img src="assets/icons/icon-128.png" width="64"/>
 
-# Chrome Extension (MV3) Boilerplate with React 18 and Vite 5
+# Chrome Extension (MV3) Boilerplate with React 19 and Vite 7
 
-This repository contains a boilerplate for building Chrome Extensions with React 18, TypeScript, and Vite 5.
+This repository contains a boilerplate for building Chrome Extensions with React 19, TypeScript, and Vite 7.
 This boilerplate is inspired by and adapted
 from [chrome-extension-boilerplate-react](https://github.com/lxieyang/chrome-extension-boilerplate-react).
 
@@ -12,7 +12,7 @@ This is a basic Chrome Extensions boilerplate to help you write modular and mode
 This boilerplate is using:
 
 - [Chrome Extension Manifest V3](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/)
-- [React 18](https://reactjs.org)
+- [React 19](https://reactjs.org)
 - [MUI](https://mui.com/)
 - [CRXJS Vite Plugin](https://www.npmjs.com/package/@crxjs/vite-plugin/v/2.0.0-beta.23)
 - ESLint:
