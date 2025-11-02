@@ -18,6 +18,10 @@ export default tseslint.config(
             react: {
                 version: 'detect'
             }
+        },
+        rules: {
+            'react/jsx-no-bind': 'warn',
+            'react/no-unstable-nested-components': 'warn'
         }
     },
     {

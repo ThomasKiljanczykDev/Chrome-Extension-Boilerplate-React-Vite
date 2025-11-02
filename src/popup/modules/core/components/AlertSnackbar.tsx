@@ -1,4 +1,4 @@
-import { Ref } from 'react';
+import { Ref, useCallback, useMemo } from 'react';
 
 import { CustomContentProps, SnackbarContent, useSnackbar } from 'notistack';
 
@@ -15,25 +15,23 @@ function AlertSnackbar({
 }) {
     const { closeSnackbar } = useSnackbar();
 
-    let severity: AlertColor;
-    switch (variant) {
-        case 'success':
-            severity = 'success';
-            break;
-        case 'error':
-            severity = 'error';
-            break;
-        case 'warning':
-            severity = 'warning';
-            break;
-        case 'info':
-            severity = 'info';
-            break;
-        case 'default':
-        default:
-            severity = 'info';
-            break;
-    }
+    const severity = useMemo<AlertColor>(() => {
+        switch (variant) {
+            case 'success':
+                return 'success';
+            case 'error':
+                return 'error';
+            case 'warning':
+                return 'warning';
+            case 'info':
+                return 'info';
+            case 'default':
+            default:
+                return 'info';
+        }
+    }, [variant]);
+
+    const handleAlertClose = useCallback(() => closeSnackbar(id), [closeSnackbar, id]);
 
     return (
         <SnackbarContent ref={ref}>
@@ -43,7 +41,7 @@ function AlertSnackbar({
                 style={{
                     width: '100%'
                 }}
-                onClose={() => closeSnackbar(id)}
+                onClose={handleAlertClose}
             >
                 {message}
             </Alert>

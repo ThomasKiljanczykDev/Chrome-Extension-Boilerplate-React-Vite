@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { useSnackbar } from 'notistack';
 
@@ -19,7 +19,7 @@ function HomePage(): ReactElement {
     const [scrapedPageTitle, setScrapedPageTitle] = useState<string>('');
     const [disableScrapeButton, setDisableScrapeButton] = useState<boolean>(false);
 
-    async function scrape() {
+    const scrape = useCallback(async () => {
         setDisableScrapeButton(true);
 
         const message: ChromeMessage<ScraperMessage> = {
@@ -37,7 +37,7 @@ function HomePage(): ReactElement {
 
             setDisableScrapeButton(false);
         }
-    }
+    }, [enqueueSnackbar]);
 
     useEffect(() => {
         chrome.storage.session.get(CACHE_KEY).then(items => {
