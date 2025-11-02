@@ -45,7 +45,7 @@ function HomePage(): ReactElement {
             setScrapedPageTitle(cachedTitle ?? '');
         });
 
-        chrome.runtime.onMessage.addListener((message: ChromeMessage<string>) => {
+        const messageListener = (message: ChromeMessage<string>) => {
             if (message.type !== ChromeMessageType.SCRAPING_RESULTS) {
                 return false;
             }
@@ -54,7 +54,13 @@ function HomePage(): ReactElement {
             setScrapedPageTitle(message.payload);
             setDisableScrapeButton(false);
             return false;
-        });
+        };
+
+        chrome.runtime.onMessage.addListener(messageListener);
+
+        return () => {
+            chrome.runtime.onMessage.removeListener(messageListener);
+        };
     }, []);
 
     return (

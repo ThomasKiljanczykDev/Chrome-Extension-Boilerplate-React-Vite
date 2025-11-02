@@ -11,15 +11,7 @@ export default tseslint.config(
     ...tseslint.configs.recommended,
     eslintPluginReact.configs.flat.recommended,
     eslintPluginReact.configs.flat['jsx-runtime'],
-    {
-        files: ['src/**/*.jsx', 'src/**/*.tsx'],
-        plugins: {
-            'react-hooks': eslintPluginReactHooks
-        },
-        rules: {
-            ...eslintPluginReactHooks.configs.recommended.rules
-        }
-    },
+    eslintPluginReactHooks.configs.flat.recommended,
     eslintConfigPrettier,
     {
         settings: {
