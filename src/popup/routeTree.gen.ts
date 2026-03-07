@@ -23,7 +23,7 @@ const HomePageIndexLazyRoute = HomePageIndexLazyRouteImport.update({
 )
 
 export interface FileRoutesByFullPath {
-  '/home-page': typeof HomePageIndexLazyRoute
+  '/home-page/': typeof HomePageIndexLazyRoute
 }
 export interface FileRoutesByTo {
   '/home-page': typeof HomePageIndexLazyRoute
@@ -34,7 +34,7 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/home-page'
+  fullPaths: '/home-page/'
   fileRoutesByTo: FileRoutesByTo
   to: '/home-page'
   id: '__root__' | '/home-page/'
@@ -49,7 +49,7 @@ declare module '@tanstack/react-router' {
     '/home-page/': {
       id: '/home-page/'
       path: '/home-page'
-      fullPath: '/home-page'
+      fullPath: '/home-page/'
       preLoaderRoute: typeof HomePageIndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
