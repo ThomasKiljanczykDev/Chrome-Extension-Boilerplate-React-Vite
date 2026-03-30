@@ -15,9 +15,8 @@
         "noEmit": true,
         "jsx": "react-jsx",
         "types": ["chrome-types"],
-        "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         }
     },
     "include": ["src", "vite.config.ts", "vite.config.background.ts", "vite.config.content.ts"]

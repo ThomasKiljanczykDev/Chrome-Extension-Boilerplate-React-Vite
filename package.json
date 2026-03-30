@@ -18,30 +18,30 @@
         "@mui/icons-material": "^7.3.9",
         "@mui/material": "^7.3.9",
         "@mui/system": "^7.3.9",
-        "@tanstack/react-router": "^1.166.2",
-        "axios": "^1.13.6",
+        "@tanstack/react-router": "^1.168.8",
+        "axios": "^1.14.0",
         "notistack": "^3.0.2",
         "react": "^19.2.4",
         "react-dom": "^19.2.4"
     },
     "devDependencies": {
-        "@crxjs/vite-plugin": "^2.3.0",
+        "@crxjs/vite-plugin": "^2.4.0",
         "@eslint/js": "^9.39.4",
-        "@tanstack/router-plugin": "^1.166.2",
+        "@tanstack/router-plugin": "^1.167.9",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
         "@types/node": "^24.12.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
-        "@vitejs/plugin-react": "^5.1.4",
-        "chrome-types": "^0.1.422",
+        "@vitejs/plugin-react": "^6.0.1",
+        "chrome-types": "^0.1.425",
         "eslint": "^9.39.4",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.0.1",
         "prettier": "^3.8.1",
         "typescript": "^5.9.3",
-        "typescript-eslint": "^8.56.1",
-        "vite": "^7.3.1"
+        "typescript-eslint": "^8.57.2",
+        "vite": "^8.0.3"
     },
     "packageManager": "yarn@4.13.0"
 }
