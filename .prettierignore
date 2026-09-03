@@ -1,6 +1,7 @@
-**/.yarn/
 **/dist*/
 **/.cache/
 **/node_modules/
 src/popup/routeTree.gen.ts
 release/
+pnpm-lock.yaml
+pnpm-workspace.yaml

@@ -53,21 +53,19 @@ jobs:
         steps:
             - uses: actions/checkout@v7
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v7
+            # TODO: go back to `pnpm/setup@v2` once https://github.com/pnpm/setup/issues/47 is resolved
+            - name: Setup pnpm and Node.js
+              uses: pnpm/setup@v2.1.0
               with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: 'yarn'
-                  cache-dependency-path: 'yarn.lock'
-
-            - name: Install dependencies
-              run: yarn install --immutable
+                  runtime: node@${{ env.NODE_VERSION }}
+                  cache: true
+                  require-lockfile: true
 
             - name: Build the code
               env:
                   # Empty means "leave the package.json version in place"
                   EXTENSION_VERSION: ${{ inputs.version }}
-              run: yarn run build
+              run: pnpm run build
 
             - name: Package the extension
               id: package
