@@ -1,0 +1,93 @@
+name: build
+
+# Reusable: call it from another workflow with
+#   uses: ./.github/workflows/build.yml
+#   with:
+#       version: 26.9.1
+on:
+    workflow_call:
+        inputs:
+            version:
+                description: 'Version stamped into the extension manifest. Defaults to the version in package.json.'
+                type: string
+                required: false
+                default: ''
+            artifact-name:
+                description: 'Name of the uploaded build artifact.'
+                type: string
+                required: false
+                default: extension
+            retention-days:
+                description: 'How long to keep the uploaded artifact.'
+                type: number
+                required: false
+                default: 7
+        outputs:
+            version:
+                description: 'Version stamped into the built manifest.'
+                value: ${{ jobs.build.outputs.version }}
+            package-name:
+                description: 'File name of the packaged extension inside the artifact.'
+                value: ${{ jobs.build.outputs.package-name }}
+    workflow_dispatch:
+        inputs:
+            version:
+                description: 'Version stamped into the extension manifest. Defaults to the version in package.json.'
+                type: string
+                required: false
+                default: ''
+
+permissions:
+    contents: read
+
+env:
+    NODE_VERSION: '24'
+
+jobs:
+    build:
+        name: Build extension package
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.package.outputs.version }}
+            package-name: ${{ steps.package.outputs.package-name }}
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v7
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: 'yarn'
+                  cache-dependency-path: 'yarn.lock'
+
+            - name: Install dependencies
+              run: yarn install --immutable
+
+            - name: Build the code
+              env:
+                  # Empty means "leave the package.json version in place"
+                  EXTENSION_VERSION: ${{ inputs.version }}
+              run: yarn run build
+
+            - name: Package the extension
+              id: package
+              run: |
+                  VERSION=$(node -p "require('./dist/manifest.json').version")
+                  NAME=$(node -p "require('./package.json').name")
+                  PACKAGE="${NAME}-v${VERSION}.zip"
+
+                  (cd dist && zip -qr "../${PACKAGE}" .)
+                  ls -lh "${PACKAGE}"
+
+                  {
+                      echo "version=${VERSION}"
+                      echo "package-name=${PACKAGE}"
+                  } >> "$GITHUB_OUTPUT"
+
+            - name: Upload the package
+              uses: actions/upload-artifact@v7
+              with:
+                  name: ${{ inputs.artifact-name || 'extension' }}
+                  path: ${{ steps.package.outputs.package-name }}
+                  retention-days: ${{ inputs.retention-days || 7 }}
+                  if-no-files-found: error

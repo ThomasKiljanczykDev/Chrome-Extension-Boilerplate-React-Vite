@@ -1,0 +1,85 @@
+name: release
+
+on:
+    workflow_dispatch:
+
+concurrency:
+    group: release
+    cancel-in-progress: false
+
+permissions:
+    contents: read
+
+jobs:
+    version:
+        name: Compute version
+        runs-on: ubuntu-latest
+        outputs:
+            version: ${{ steps.version.outputs.version }}
+        steps:
+            - uses: actions/checkout@v7
+              with:
+                  fetch-depth: 0
+
+            - name: Compute version
+              id: version
+              run: |
+                  YY=$(date -u +%-y)
+                  M=$(date -u +%-m)
+                  PREFIX="v${YY}.${M}."
+
+                  # Find the highest revision for this YY.M prefix
+                  LATEST_REV=$(git tag --list "${PREFIX}*" --sort=-version:refname \
+                    | head -n 1 \
+                    | sed "s/^${PREFIX}//")
+
+                  if [ -z "$LATEST_REV" ]; then
+                    REVISION=1
+                  else
+                    REVISION=$((LATEST_REV + 1))
+                  fi
+
+                  VERSION="${YY}.${M}.${REVISION}"
+                  echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+                  echo "Computed version: $VERSION"
+
+    build:
+        name: Build
+        needs: version
+        uses: ./.github/workflows/build.yml
+        with:
+            version: ${{ needs.version.outputs.version }}
+            artifact-name: release-package
+            retention-days: 1
+
+    release:
+        name: Create GitHub release
+        needs: [version, build]
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Download the package
+              uses: actions/download-artifact@v8
+              with:
+                  name: release-package
+                  path: artifacts
+
+            - name: Create git tag
+              env:
+                  VERSION: ${{ needs.version.outputs.version }}
+              run: |
+                  git tag "v${VERSION}"
+                  git push origin "v${VERSION}"
+
+            - name: Create GitHub release
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  VERSION: ${{ needs.version.outputs.version }}
+              run: |
+                  gh release create "v${VERSION}" \
+                    artifacts/* \
+                    --title "v${VERSION}" \
+                    --generate-notes

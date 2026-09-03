@@ -1,11 +1,11 @@
 /** @typedef { import('prettier').Config } PrettierConfig */
-/** @typedef { import('@trivago/prettier-plugin-sort-imports').PluginConfig } SortImportsConfig */
+/** @typedef { import('@ianvs/prettier-plugin-sort-imports').PluginConfig } SortImportsConfig */
 
 /**
  * @type {PrettierConfig & SortImportsConfig}
  */
 const prettierConfig = {
-    plugins: ['@trivago/prettier-plugin-sort-imports'],
+    plugins: ['@prettier/plugin-oxc', '@ianvs/prettier-plugin-sort-imports'],
     // Code style
     semi: true,
     tabWidth: 4,
@@ -16,19 +16,24 @@ const prettierConfig = {
     trailingComma: 'none',
     arrowParens: 'avoid',
     bracketSameLine: false,
-    // Import sort
+    // Import sort ('' entries insert a blank line between groups)
     importOrder: [
         '^react$',
+        '',
+        '<BUILTIN_MODULES>',
         '^[A-z]',
+        '',
         '^@[^/]',
+        '',
         '^@/',
+        '',
         '^\\../',
+        '',
         '^\\./',
-        '^.+.s?css$',
-        '^\\u0000.+'
+        '',
+        '^.+\\.s?css$'
     ],
-    importOrderSeparation: true,
-    importOrderSortSpecifiers: true,
+    importOrderCaseSensitive: true,
     importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy']
 };
 

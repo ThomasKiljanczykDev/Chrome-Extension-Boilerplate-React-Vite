@@ -9,31 +9,35 @@ env:
     NODE_VERSION: '24'
 
 jobs:
-    ci-ChromeExtension:
-        name: Chrome extension CI
+    lint:
+        name: Lint and type-check
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
 
             - name: Setup Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v7
               with:
                   node-version: ${{ env.NODE_VERSION }}
                   cache: 'yarn'
                   cache-dependency-path: 'yarn.lock'
 
             - name: Cache ESLint cache
-              uses: actions/cache@v4
+              uses: actions/cache@v6
               with:
-                  path: js/.cache/.eslintcache
+                  path: .cache/.eslintcache
                   # Invalidate cache when any of the listed files changes
-                  key: ${{ runner.os }}-eslint-${{ hashFiles('js/yarn.lock', 'js/eslint-config/src/*', 'js/eslint-config/index.js', 'js/eslint.config.js', 'js/.cache/.eslintcache') }}
+                  key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock', 'eslint.config.js') }}
 
             - name: Install dependencies
-              run: yarn install --frozen-lockfile
+              run: yarn install --immutable
 
             - name: Lint the code
               run: yarn run lint
 
-            - name: Build the code
-              run: yarn run build
+            - name: Check types
+              run: yarn run check-types
+
+    build:
+        name: Build
+        uses: ./.github/workflows/build.yml
