@@ -67,8 +67,8 @@ function HomePage(): ReactElement {
         <>
             <PopupHeader />
             <PopupContent>
-                <Stack alignItems="center" spacing={1}>
-                    <Box alignItems="center">
+                <Stack sx={{ alignItems: 'center' }} spacing={1}>
+                    <Box sx={{ alignItems: 'center' }}>
                         <h1>My Chromium extension</h1>
                     </Box>
 
