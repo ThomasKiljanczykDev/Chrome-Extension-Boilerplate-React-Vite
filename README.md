@@ -62,6 +62,16 @@ This boilerplate supports TypeScript! Everything that can be written in TypeScri
 
 This boilerplate has a watch script (`yarn watch`) which will update the extension's code every time you save a file.
 
+## Scripts
+
+| Script             | Description                                                    |
+| ------------------ | -------------------------------------------------------------- |
+| `yarn build`       | Builds the extension into the `dist` folder.                   |
+| `yarn watch`       | Rebuilds the extension every time you save a file.             |
+| `yarn lint`        | Runs ESLint over the project (results are cached in `.cache`). |
+| `yarn check-types` | Runs the TypeScript compiler without emitting any files.       |
+| `yarn format`      | Formats the whole project with Prettier.                       |
+
 ## Packing
 
 After the development of your extension run the command
@@ -72,6 +82,33 @@ $ yarn build
 
 Now, the content of `dist` folder will be the extension ready to be submitted to the Chrome Web Store. Just take a look
 at the [official guide](https://developer.chrome.com/webstore/publish) to more infos about publishing.
+
+## CI/CD
+
+The workflows in `.github/workflows` cover linting, building and releasing:
+
+- **`ci.yml`** — runs on every push. Lints the code, checks the types, and builds the extension.
+- **`build.yml`** — builds the extension and uploads the packaged `.zip` as a workflow artifact. It is a reusable
+  workflow, so other pipelines can call it directly:
+
+    ```yaml
+    jobs:
+        build:
+            uses: ./.github/workflows/build.yml
+            with:
+                # Optional. Defaults to the version in package.json.
+                version: 26.9.1
+    ```
+
+    It exposes the built `version` and the `package-name` as outputs, and can also be triggered manually from the
+    Actions tab.
+
+- **`release.yml`** — triggered manually. Computes the next version, builds the extension, pushes a git tag and creates
+  a GitHub release with the packaged `.zip` attached.
+
+Releases are versioned as `v<YY>.<M>.<revision>`, where `YY` is the two-digit year, `M` the month, and `revision` a
+counter that restarts every month (for example `v26.9.1`, then `v26.9.2`). The version is stamped into the built
+`manifest.json`; `package.json` is left untouched.
 
 ## Resources:
 

@@ -3,6 +3,10 @@
     "version": "1.0.0",
     "description": "A chrome extension boilerplate built with React 19 and Vite 8",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ThomasKiljanczykDev/Chrome-Extension-Boilerplate-React-Vite.git"
+    },
     "type": "module",
     "scripts": {
         "lint": "eslint . --cache --cache-strategy content --cache-location .cache/.eslintcache",
