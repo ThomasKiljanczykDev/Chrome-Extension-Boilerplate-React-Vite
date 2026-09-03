@@ -15,28 +15,26 @@ jobs:
         steps:
             - uses: actions/checkout@v7
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v7
+            # TODO: go back to `pnpm/setup@v2` once https://github.com/pnpm/setup/issues/47 is resolved
+            - name: Setup pnpm and Node.js
+              uses: pnpm/setup@v2.1.0
               with:
-                  node-version: ${{ env.NODE_VERSION }}
-                  cache: 'yarn'
-                  cache-dependency-path: 'yarn.lock'
+                  runtime: node@${{ env.NODE_VERSION }}
+                  cache: true
+                  require-lockfile: true
 
             - name: Cache ESLint cache
               uses: actions/cache@v6
               with:
                   path: .cache/.eslintcache
                   # Invalidate cache when any of the listed files changes
-                  key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock', 'eslint.config.js') }}
-
-            - name: Install dependencies
-              run: yarn install --immutable
+                  key: ${{ runner.os }}-eslint-${{ hashFiles('pnpm-lock.yaml', 'eslint.config.js') }}
 
             - name: Lint the code
-              run: yarn run lint
+              run: pnpm run lint
 
             - name: Check types
-              run: yarn run check-types
+              run: pnpm run check-types
 
     build:
         name: Build

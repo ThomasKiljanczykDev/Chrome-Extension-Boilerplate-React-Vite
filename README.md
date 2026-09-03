@@ -34,17 +34,19 @@ Please open up an issue to nudge me to keep the npm packages up-to-date.
 ### Procedures:
 
 1. Check if your [Node.js](https://nodejs.org/) version is **^20.19.0 || >=22.12.0**.
-2. Clone this repository.
-3. Change the package's `name`, `description`, and `repository` fields in `package.json`.
-4. Change the name of your extension in `manifest.json`.
-5. Run `yarn install` to install the dependencies.
-6. Run `yarn build`
-7. Load your extension on Chrome following:
+2. Enable [pnpm](https://pnpm.io/) via Corepack: `corepack enable pnpm`. The pinned version comes from the
+   `packageManager` field in `package.json`.
+3. Clone this repository.
+4. Change the package's `name`, `description`, and `repository` fields in `package.json`.
+5. Change the name of your extension in `manifest.json`.
+6. Run `pnpm install` to install the dependencies.
+7. Run `pnpm build`
+8. Load your extension on Chrome following:
     1. Access `chrome://extensions/`
     2. Turn the `Developer mode` switch on (top right corner)
     3. Click on `Load unpacked`
     4. Select the `dist` folder.
-8. Happy hacking.
+9. Happy hacking.
 
 ## Structure
 
@@ -61,24 +63,24 @@ This boilerplate supports TypeScript! Everything that can be written in TypeScri
 
 ## Change Watchers
 
-This boilerplate has a watch script (`yarn watch`) which will update the extension's code every time you save a file.
+This boilerplate has a watch script (`pnpm watch`) which will update the extension's code every time you save a file.
 
 ## Scripts
 
 | Script             | Description                                                    |
 | ------------------ | -------------------------------------------------------------- |
-| `yarn build`       | Builds the extension into the `dist` folder.                   |
-| `yarn watch`       | Rebuilds the extension every time you save a file.             |
-| `yarn lint`        | Runs ESLint over the project (results are cached in `.cache`). |
-| `yarn check-types` | Runs the TypeScript compiler without emitting any files.       |
-| `yarn format`      | Formats the whole project with Prettier.                       |
+| `pnpm build`       | Builds the extension into the `dist` folder.                   |
+| `pnpm watch`       | Rebuilds the extension every time you save a file.             |
+| `pnpm lint`        | Runs ESLint over the project (results are cached in `.cache`). |
+| `pnpm check-types` | Runs the TypeScript compiler without emitting any files.       |
+| `pnpm format`      | Formats the whole project with Prettier.                       |
 
 ## Packing
 
 After the development of your extension run the command
 
 ```
-$ yarn build
+$ pnpm build
 ```
 
 Now, the content of `dist` folder will be the extension ready to be submitted to the Chrome Web Store. Just take a look
