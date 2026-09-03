@@ -27,8 +27,9 @@
     "devDependencies": {
         "@crxjs/vite-plugin": "^2.7.1",
         "@eslint/js": "^9.39.5",
+        "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+        "@prettier/plugin-oxc": "^0.2.2",
         "@tanstack/router-plugin": "^1.168.35",
-        "@trivago/prettier-plugin-sort-imports": "^6.0.2",
         "@types/node": "^26.4.1",
         "@types/react": "^19.2.18",
         "@types/react-dom": "^19.2.7",

@@ -21,7 +21,8 @@ This boilerplate is using:
     - [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier)
     - [typescript-eslint](https://www.npmjs.com/package/typescript-eslint)
 - [Prettier](https://prettier.io/)
-    - [@trivago/prettier-plugin-sort-imports](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports)
+    - [@prettier/plugin-oxc](https://www.npmjs.com/package/@prettier/plugin-oxc) (Oxc-based parser)
+    - [@ianvs/prettier-plugin-sort-imports](https://www.npmjs.com/package/@ianvs/prettier-plugin-sort-imports)
 - [TypeScript](https://www.typescriptlang.org/)
 - [TanStack Router](https://tanstack.com/router)
 
