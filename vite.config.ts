@@ -20,7 +20,8 @@ export default defineConfig({
         crx({
             manifest: {
                 ...manifest,
-                version: packageJson.version
+                // Overridable by CI so release builds can be stamped without touching package.json
+                version: process.env.EXTENSION_VERSION ?? packageJson.version
             }
         })
     ],
