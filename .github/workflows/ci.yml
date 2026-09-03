@@ -13,17 +13,17 @@ jobs:
         name: Chrome extension CI
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
 
             - name: Setup Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v7
               with:
                   node-version: ${{ env.NODE_VERSION }}
                   cache: 'yarn'
                   cache-dependency-path: 'yarn.lock'
 
             - name: Cache ESLint cache
-              uses: actions/cache@v4
+              uses: actions/cache@v6
               with:
                   path: js/.cache/.eslintcache
                   # Invalidate cache when any of the listed files changes
