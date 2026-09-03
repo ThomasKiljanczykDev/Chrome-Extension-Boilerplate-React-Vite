@@ -1,7 +1,7 @@
 {
     "name": "chrome-extension-boilerplate-react-vite",
     "version": "1.0.0",
-    "description": "A chrome extension boilerplate built with React 18 and Vite 5",
+    "description": "A chrome extension boilerplate built with React 19 and Vite 8",
     "license": "MIT",
     "type": "module",
     "scripts": {

@@ -1,8 +1,8 @@
 <img src="assets/icons/icon-128.png" width="64"/>
 
-# Chrome Extension (MV3) Boilerplate with React 19 and Vite 7
+# Chrome Extension (MV3) Boilerplate with React 19 and Vite 8
 
-This repository contains a boilerplate for building Chrome Extensions with React 19, TypeScript, and Vite 7.
+This repository contains a boilerplate for building Chrome Extensions with React 19, TypeScript, and Vite 8.
 This boilerplate is inspired by and adapted
 from [chrome-extension-boilerplate-react](https://github.com/lxieyang/chrome-extension-boilerplate-react).
 
@@ -14,13 +14,14 @@ This boilerplate is using:
 - [Chrome Extension Manifest V3](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/)
 - [React 19](https://reactjs.org)
 - [MUI](https://mui.com/)
-- [CRXJS Vite Plugin](https://www.npmjs.com/package/@crxjs/vite-plugin/v/2.0.0-beta.23)
+- [CRXJS Vite Plugin](https://www.npmjs.com/package/@crxjs/vite-plugin)
 - ESLint:
     - [eslint-plugin-react](https://www.npmjs.com/package/eslint-plugin-react)
+    - [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
     - [eslint-config-prettier](https://www.npmjs.com/package/eslint-config-prettier)
-    - [eslint-plugin-simple-import-sort](https://www.npmjs.com/package/eslint-plugin-simple-import-sort)
     - [typescript-eslint](https://www.npmjs.com/package/typescript-eslint)
 - [Prettier](https://prettier.io/)
+    - [@trivago/prettier-plugin-sort-imports](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports)
 - [TypeScript](https://www.typescriptlang.org/)
 - [TanStack Router](https://tanstack.com/router)
 
@@ -30,7 +31,7 @@ Please open up an issue to nudge me to keep the npm packages up-to-date.
 
 ### Procedures:
 
-1. Check if your [Node.js](https://nodejs.org/) version is >= **18**.
+1. Check if your [Node.js](https://nodejs.org/) version is **^20.19.0 || >=22.12.0**.
 2. Clone this repository.
 3. Change the package's `name`, `description`, and `repository` fields in `package.json`.
 4. Change the name of your extension in `manifest.json`.
@@ -77,4 +78,4 @@ at the [official guide](https://developer.chrome.com/webstore/publish) to more i
 
 ---
 
-Tomasz Kiljańczyk | [Website](https://github.com/Gunock)
+Tomasz Kiljańczyk | [Website](https://github.com/ThomasKiljanczykDev)
