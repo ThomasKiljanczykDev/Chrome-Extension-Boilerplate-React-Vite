@@ -1,3 +1,4 @@
+<!--suppress HtmlRequiredAltAttribute, CheckImageSize -->
 <img src="assets/icons/icon-128.png" width="64"/>
 
 # Chrome Extension (MV3) Boilerplate with React 19 and Vite 8
